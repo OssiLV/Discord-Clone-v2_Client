@@ -14,25 +14,30 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import AuthLayout from "./Layout";
-import { Link } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const formSchema = z.object({
-    userName: z.string().min(2).max(100),
+    name: z.string().min(2).max(100),
     email: z.string().email().min(2).max(100),
     password: z.string().min(4).max(50),
 });
 
 const SignUp = () => {
+    const navigate = useNavigate();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
+            name: "",
             email: "",
             password: "",
         },
     });
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values);
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        await axios.post("/auth/sign-up", values);
+
+        return navigate("/sign-in");
     }
     return (
         <AuthLayout>
@@ -44,7 +49,7 @@ const SignUp = () => {
                     >
                         <FormField
                             control={form.control}
-                            name="userName"
+                            name="name"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>UserName</FormLabel>

@@ -13,7 +13,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import AuthLayout from "./Layout";
-import { Link } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const formSchema = z.object({
     email: z.string().email().min(2).max(100),
@@ -21,6 +23,7 @@ const formSchema = z.object({
 });
 
 const SignIn = () => {
+    const navigate = useNavigate();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -29,8 +32,22 @@ const SignIn = () => {
         },
     });
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        console.log(values);
+    async function onSubmit(values: z.infer<typeof formSchema>) {
+        const response_1 = await axios.post("/auth/sign-in", values);
+        const accessToken: string = response_1.data.access_token;
+
+        const response_2 = await axios.get("/auth/user", {
+            headers: { Authorization: `Bearer ${accessToken}` },
+        });
+
+        const expirationDate = new Date(response_2.data.exp * 1000);
+        const formattedExpirationDate = expirationDate.toLocaleString("en-US"); // Convert to a formatted string
+
+        Cookies.set("access-token", accessToken, {
+            expires: new Date(formattedExpirationDate),
+        });
+
+        return window.location.assign("/");
     }
     return (
         <AuthLayout>
