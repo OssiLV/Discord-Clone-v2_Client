@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import AuthLayout from "./Layout";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -23,7 +23,6 @@ const formSchema = z.object({
 });
 
 const SignIn = () => {
-    const navigate = useNavigate();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {

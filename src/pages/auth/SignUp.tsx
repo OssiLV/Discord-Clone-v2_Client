@@ -14,7 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import AuthLayout from "./Layout";
-import { Link, redirect, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const formSchema = z.object({
