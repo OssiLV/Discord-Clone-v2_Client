@@ -46,7 +46,7 @@ const SignIn = () => {
             expires: new Date(formattedExpirationDate),
         });
 
-        return window.location.assign("/");
+        return window.location.assign("/channels/@me");
     }
     return (
         <AuthLayout>
