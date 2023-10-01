@@ -21,6 +21,10 @@ axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 
 const router = createBrowserRouter([
     {
+        path: "/",
+        element: <SignIn />,
+    },
+    {
         path: "channels/@me",
         element: (
             <PrivateRoute>
