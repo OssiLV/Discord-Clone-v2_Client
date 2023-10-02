@@ -13,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 import AuthLayout from "./Layout";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 
@@ -23,6 +23,7 @@ const formSchema = z.object({
 });
 
 const SignIn = () => {
+    const navigate = useNavigate();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -46,7 +47,8 @@ const SignIn = () => {
             expires: new Date(formattedExpirationDate),
         });
 
-        return window.location.assign("/channels/@me");
+        // return window.location.assign("/channels/@me");
+        return navigate("/channels/@me");
     }
     return (
         <AuthLayout>
