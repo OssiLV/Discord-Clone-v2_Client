@@ -46,9 +46,10 @@ const SignIn = () => {
         Cookies.set("access-token", accessToken, {
             expires: new Date(formattedExpirationDate),
         });
+        const token = Cookies.get("access-token");
+        axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 
-        // return window.location.assign("/channels/@me");
-        return navigate("/channels/@me");
+        return navigate("/direct-messages/@me");
     }
     return (
         <AuthLayout>

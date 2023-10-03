@@ -50,7 +50,9 @@ const ChannelActions = ({
             <DropdownMenuContent className="w-48 text-xs font-medium text-black dark:text-neutral-400 space-y-[2px]">
                 {isModerator && (
                     <DropdownMenuItem
-                        onClick={() => onOpen("invite", { currentServer })}
+                        onClick={() =>
+                            onOpen("invite", { server: currentServer })
+                        }
                         className="text-indigo-600 dark:text-indigo-400 px-3 py-2 text-sm cursor-pointer"
                     >
                         Invite People
@@ -59,7 +61,9 @@ const ChannelActions = ({
                 )}
                 {isAdmin && (
                     <DropdownMenuItem
-                        onClick={() => onOpen("editServer", { currentServer })}
+                        onClick={() =>
+                            onOpen("editServer", { server: currentServer })
+                        }
                         className="px-3 py-2 text-sm cursor-pointer"
                     >
                         Server Settings
@@ -68,7 +72,9 @@ const ChannelActions = ({
                 )}
                 {isAdmin && (
                     <DropdownMenuItem
-                        onClick={() => onOpen("members", { currentServer })}
+                        onClick={() =>
+                            onOpen("members", { server: currentServer })
+                        }
                         className="px-3 py-2 text-sm cursor-pointer"
                     >
                         Manage Members
@@ -88,7 +94,7 @@ const ChannelActions = ({
                 {isAdmin && (
                     <DropdownMenuItem
                         onClick={() =>
-                            onOpen("deleteServer", { currentServer })
+                            onOpen("deleteServer", { server: currentServer })
                         }
                         className="text-rose-500 px-3 py-2 text-sm cursor-pointer"
                     >
@@ -98,7 +104,9 @@ const ChannelActions = ({
                 )}
                 {!isAdmin && (
                     <DropdownMenuItem
-                        onClick={() => onOpen("leaveServer", { currentServer })}
+                        onClick={() =>
+                            onOpen("leaveServer", { server: currentServer })
+                        }
                         className="text-rose-500 px-3 py-2 text-sm cursor-pointer"
                     >
                         Leave Server

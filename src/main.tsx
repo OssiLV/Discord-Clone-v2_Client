@@ -11,9 +11,10 @@ import SignUp from "@/pages/auth/SignUp.tsx";
 import SignIn from "@/pages/auth/SignIn.tsx";
 import { ThemeProvider } from "@/components/providers/theme-provider.tsx";
 import PrivateRoute from "./components/private-route.tsx";
-import Me from "./pages/Me.tsx";
 import ModalProvider from "./components/providers/modal-provider.tsx";
 import DirectMessages from "./pages/DirectMessages.tsx";
+import App from "./pages/App.tsx";
+import Invite from "./pages/Invite.tsx";
 
 const token = Cookies.get("access-token");
 axios.defaults.baseURL = import.meta.env.VITE_API_ENDPOINT;
@@ -22,10 +23,14 @@ axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <SignIn />,
+        element: <App />,
     },
     {
-        path: "channels/@me",
+        path: "/invite/:inviteCode",
+        element: <Invite />,
+    },
+    {
+        path: "direct-messages/@me",
         element: (
             <PrivateRoute>
                 <DirectMessages />
@@ -34,10 +39,10 @@ const router = createBrowserRouter([
         errorElement: <ErrorPage />,
     },
     {
-        path: "channels/:serverId",
+        path: "servers/:serverId/channels/:channelId",
         element: (
             <PrivateRoute>
-                <Me />
+                <DirectMessages />
             </PrivateRoute>
         ),
         errorElement: <ErrorPage />,

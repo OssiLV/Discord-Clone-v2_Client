@@ -6,12 +6,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 const ServerHeader = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const isCurrentPage = location.pathname === "/channels/@me";
+    const isCurrentPage = location.pathname === "/direct-messages/@me";
 
     return (
         <ActionTooltip side="right" align="center" label="Direct Messages">
             <button
-                onClick={() => navigate("/channels/@me")}
+                onClick={() => navigate("/direct-messages/@me")}
                 className="group relative flex items-center"
             >
                 <div

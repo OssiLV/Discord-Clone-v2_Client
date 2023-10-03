@@ -1,7 +1,10 @@
 import { cn } from "@/lib/utils";
 import { ActionTooltip } from "@/components/actions/action-tooltip";
 import { useNavigate, useParams } from "react-router-dom";
-
+import qs from "query-string";
+import { useEffect } from "react";
+import axios from "axios";
+import { Channel } from "@/types/type-models";
 interface NavigationItemProps {
     id: string;
     imageUrl: string;
@@ -11,11 +14,22 @@ interface NavigationItemProps {
 export const NavigationItem = ({ id, imageUrl, name }: NavigationItemProps) => {
     const { serverId } = useParams();
     const navigate = useNavigate();
+    const onClick = async () => {
+        const url = qs.stringifyUrl({
+            url: "/channels/general",
+            query: {
+                serverId: id,
+            },
+        });
 
+        const response = await axios.get(url);
+        const data = response.data as Channel;
+        navigate(`/servers/${id}/channels/${data.id}`);
+    };
     return (
         <ActionTooltip side="right" align="center" label={name}>
             <button
-                onClick={() => navigate(`/channels/${id}`)}
+                onClick={onClick}
                 className={cn("group relative flex items-center")}
             >
                 <div

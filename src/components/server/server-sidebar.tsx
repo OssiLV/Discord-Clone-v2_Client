@@ -9,15 +9,23 @@ import { Server } from "@/types/type-models";
 import { useEffect, useState } from "react";
 import { useDataState } from "@/hooks/use-state-store";
 import { Loader2 } from "lucide-react";
+import Cookies from "js-cookie";
 
 const ServerSideBar = () => {
     const [servers, setServer] = useState<Server[]>([]);
     const { type, data, flush } = useDataState();
+    const token = Cookies.get("access-token");
 
     useEffect(() => {
-        axios.get("/servers").then((res) => {
-            setServer(res.data);
-        });
+        axios
+            .get("/servers", {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((res) => {
+                setServer(res.data);
+            });
     }, []);
 
     useEffect(() => {
