@@ -1,13 +1,10 @@
 import * as z from "zod";
-import axios from "axios";
-import qs from "query-string";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Plus } from "lucide-react";
 
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useModal } from "@/hooks/use-modal-store";
 import { EmojiPicker } from "../actions/emoji-picker";
 
 import { io } from "socket.io-client";
@@ -31,7 +28,6 @@ const ConversationFooter = ({
     setMessage,
 }: ConversationFooterProps) => {
     const { serverId, channelId } = useParams();
-    const { onOpen } = useModal();
     const token = Cookies.get("access-token");
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),

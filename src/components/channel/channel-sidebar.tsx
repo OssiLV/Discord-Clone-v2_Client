@@ -2,13 +2,7 @@ import { Separator } from "@/components/ui/separator";
 import ChannelHeader from "./channel-header";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import {
-    Channel,
-    ChannelType,
-    Member,
-    MemberRole,
-    Server,
-} from "@/types/type-models";
+import { Channel, ChannelType, MemberRole, Server } from "@/types/type-models";
 import {
     MemberWithProfileWithUser,
     ServerWithChannelsMembers,

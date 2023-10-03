@@ -1,8 +1,5 @@
 import { Channel, ChannelType } from "@/types/type-models";
-import axios from "axios";
 import { Hash, Mic, Video } from "lucide-react";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 
 interface ConversationHeaderProps {
     channel: Channel;
