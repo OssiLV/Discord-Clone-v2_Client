@@ -6,13 +6,11 @@ import { Plus } from "lucide-react";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { EmojiPicker } from "../actions/emoji-picker";
-
-import { io } from "socket.io-client";
 import { useParams } from "react-router-dom";
-import Cookies from "js-cookie";
+
 interface ConversationFooterProps {
     type: "conversation" | "channel";
-
+    socket: any;
     name: string;
     setMessage: (body: any) => void;
 }
@@ -24,11 +22,10 @@ const formSchema = z.object({
 const ConversationFooter = ({
     type,
     name,
-
+    socket,
     setMessage,
 }: ConversationFooterProps) => {
     const { serverId, channelId } = useParams();
-    const token = Cookies.get("access-token");
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -39,12 +36,6 @@ const ConversationFooter = ({
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
-            const socket = io("ws://localhost:80/", {
-                extraHeaders: {
-                    Authorization: `Bearer ${token}`,
-                },
-            });
-
             socket.emit("chat", {
                 serverId,
                 channelId,

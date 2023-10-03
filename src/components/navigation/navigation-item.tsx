@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import qs from "query-string";
 import axios from "axios";
 import { Channel } from "@/types/type-models";
+
 interface NavigationItemProps {
     id: string;
     imageUrl: string;
