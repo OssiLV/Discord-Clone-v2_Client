@@ -15,6 +15,7 @@ import ModalProvider from "./components/providers/modal-provider.tsx";
 import DirectMessages from "./pages/DirectMessages.tsx";
 import App from "./pages/App.tsx";
 import Invite from "./pages/Invite.tsx";
+import { SocketProvider } from "./components/providers/socket-provider.tsx";
 
 const token = Cookies.get("access-token");
 axios.defaults.baseURL = import.meta.env.VITE_API_ENDPOINT;
@@ -60,8 +61,10 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-            <ModalProvider />
-            <RouterProvider router={router} />
+            <SocketProvider token={token ? token : ""}>
+                <ModalProvider />
+                <RouterProvider router={router} />
+            </SocketProvider>
         </ThemeProvider>
     </React.StrictMode>,
 );

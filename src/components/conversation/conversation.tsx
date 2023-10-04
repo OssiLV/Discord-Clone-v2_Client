@@ -4,22 +4,16 @@ import ConversationFooter from "./conversation-footer";
 import ConversationHeader from "./conversation-header";
 import { useState } from "react";
 import { MessageWithMemberWithProfileWithUser } from "@/types/type-custom";
-import { io } from "socket.io-client";
-import Cookies from "js-cookie";
+import { Socket } from "socket.io-client";
+import { useSocket } from "../providers/socket-provider";
 interface ConversationProps {
     channel: Channel;
 }
 
 const Conversation = ({ channel }: ConversationProps) => {
-    const token = Cookies.get("access-token");
-
+    const { socket } = useSocket();
     const [message, setMessage] =
         useState<MessageWithMemberWithProfileWithUser>();
-    const socket = io("ws://localhost:80/", {
-        extraHeaders: {
-            Authorization: `Bearer ${token}`,
-        },
-    });
 
     return (
         <div className="flex flex-col h-full w-full">
@@ -28,7 +22,7 @@ const Conversation = ({ channel }: ConversationProps) => {
                 newMessage={message as MessageWithMemberWithProfileWithUser}
             />
             <ConversationFooter
-                socket={socket}
+                socket={socket as Socket}
                 type="channel"
                 name={channel?.name}
                 setMessage={setMessage}

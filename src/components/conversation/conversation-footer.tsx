@@ -7,10 +7,11 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { EmojiPicker } from "../actions/emoji-picker";
 import { useParams } from "react-router-dom";
+import { Socket } from "socket.io-client";
 
 interface ConversationFooterProps {
     type: "conversation" | "channel";
-    socket: any;
+    socket: Socket;
     name: string;
     setMessage: (body: any) => void;
 }
